@@ -148,7 +148,7 @@ class DatabaseManager {
         hyundai.addPart("Hood", 4000.0);
         hyundai.addPart("Front Windshield", 2000.0);
         addVehicle(hyundai);
-        registerLicensePlate("ABC123", "VEH001");
+        registerLicensePlate("A123", "VEH001");
 
         Vehicle toyota = new Vehicle("VEH002", "Toyota", "Corolla", 2020);
         toyota.addPart("Front Bumper", 3000.0);
@@ -156,6 +156,6 @@ class DatabaseManager {
         toyota.addPart("Right Headlight", 3500.0);
         toyota.addPart("Hood", 4500.0);
         addVehicle(toyota);
-        registerLicensePlate("XYZ789", "VEH002");
+        registerLicensePlate("123", "VEH002");
     }
 }
