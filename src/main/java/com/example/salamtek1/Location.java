@@ -8,8 +8,12 @@ class Location {
         this.longitude = longitude;
     }
 
-    public double getLatitude() { return latitude; }
-    public double getLongitude() { return longitude; }
+    public double getLatitude() {
+        return latitude;
+    }
+    public double getLongitude() { 
+        return longitude;
+    }
 
     public double distanceTo(Location other) {
         final int R = 6371;
@@ -22,5 +26,6 @@ class Location {
     }
 
     @Override
-    public String toString() { return String.format("(%.4f, %.4f)", latitude, longitude); }
+    public String toString() { return String.format("(%.4f, %.4f)", latitude, longitude); 
+                             }
 }
