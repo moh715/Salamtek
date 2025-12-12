@@ -25,6 +25,10 @@ class Vehicle {
         parts.put(partName, new VehiclePart(partName, price));
     }
 
-    public HashMap<String, VehiclePart> getParts() { return parts; }
-    public String getFullName() { return make + " " + model + " " + year; }
+    public HashMap<String, VehiclePart> getParts() { 
+        return parts;
+    }
+    public String getFullName() {
+        return make + " " + model + " " + year; 
+    }
 }
