@@ -15,11 +15,24 @@ class User {
         this.password = password;
     }
 
-    public String getNationalId() { return nationalId; }
-    public String getName() { return name; }
-    public String getPhoneNumber() { return phoneNumber; }
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public List<String> getAccidentIds() { return accidentIds; }
-    public void addAccidentId(String accidentId) { accidentIds.add(accidentId); }
+    public String getNationalId() {
+        return nationalId; 
+    }
+    public String getName() {
+        return name; 
+    }
+    public String getPhoneNumber() {
+        return phoneNumber; 
+    }
+    public String getEmail() { 
+        return email; 
+    }
+    public String getPassword() { 
+        return password; 
+    }
+    public List<String> getAccidentIds() {
+        return accidentIds; 
+    }
+    public void addAccidentId(String accidentId) { 
+        accidentIds.add(accidentId); }
 }
