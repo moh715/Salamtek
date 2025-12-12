@@ -20,15 +20,31 @@ class Payment {
         this.amount = amount;
     }
 
-    public String getPaymentId() { return paymentId; }
-    public String getPayerNationalId() { return payerNationalId; }
-    public String getRecipientNationalId() { return recipientNationalId; }
-    public double getAmount() { return amount; }
-    public PaymentStatus getStatus() { return status; }
+    public String getPaymentId() { 
+        return paymentId;
+    }
+    public String getPayerNationalId() {
+        return payerNationalId;
+    }
+    public String getRecipientNationalId() {
+        return recipientNationalId;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public PaymentStatus getStatus() {
+        return status;
+    }
 
-    public boolean isLate() { return LocalDateTime.now().isAfter(dueDate) && status == PaymentStatus.PENDING; }
-    public double getLateFee() { return isLate() ? amount * 0.05 : 0.0; }
-    public double getTotalAmountDue() { return amount + getLateFee(); }
+    public boolean isLate() {
+        return LocalDateTime.now().isAfter(dueDate) && status == PaymentStatus.PENDING;
+    }
+    public double getLateFee() {
+        return isLate() ? amount * 0.05 : 0.0;
+    }
+    public double getTotalAmountDue() {
+        return amount + getLateFee();
+    }
 
     public void processPayment(String paymentMethod) {
         this.status = PaymentStatus.PAID;
@@ -36,7 +52,9 @@ class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public void markAsAvailable() { this.status = PaymentStatus.AVAILABLE; }
+    public void markAsAvailable() {
+        this.status = PaymentStatus.AVAILABLE;
+    }
 
     public String getFormattedDueDate() {
         return dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
