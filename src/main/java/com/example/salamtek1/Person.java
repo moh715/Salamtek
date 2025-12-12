@@ -1,7 +1,7 @@
 package com.example.salamtek1;
 
 public abstract class Person {
-    // TOPIC: ENCAPSULATION (protected fields allow child access)
+    // encapsulation (protected fields allow child access)
     protected String name;
     protected String email;
     protected String password;
@@ -13,9 +13,15 @@ public abstract class Person {
     }
     public abstract String getRole();
 
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
+    public String getName() { 
+        return name; 
+    }
+    public String getEmail() {
+        return email; 
+    }
+    public String getPassword() {
+        return password; 
+    }
     public boolean checkPassword(String inputPass) {
         return this.password.equals(inputPass);
     }
