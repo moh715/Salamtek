@@ -30,7 +30,7 @@ public String getOfficerId() {
         isAvailable = available;
     }
     public void assignAccident(String accidentId) {
-        assignedAccidentIds.add(accidentId);
+    assignedAccidentIds.add(accidentId);
     }
 
 }
