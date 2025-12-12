@@ -1,18 +1,25 @@
 package com.example.salamtek1;
 
+import com.example.salamtek1.Reportable;
+
+import javax.xml.stream.Location;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import java.util.*;
+
 enum AccidentStatus { REPORTED, OFFICER_ASSIGNED, UNDER_INVESTIGATION, COMPLETED, PAID }
 
-class Accident {
+// Implements 'Reportable' interface
+class Accident implements Reportable {
     private String accidentId, reporterNationalId, otherPartyNationalId;
     private String reporterLicensePlate, otherPartyLicensePlate;
     private Location accidentLocation;
     private LocalDateTime reportTime = LocalDateTime.now();
     private AccidentStatus status = AccidentStatus.REPORTED;
     private String assignedOfficerId, atFaultPartyId, notes = "";
+    // Changed List to ArrayList
     private ArrayList<String> damagedParts = new ArrayList<>();
     private double totalCost = 0.0;
 
@@ -26,6 +33,16 @@ class Accident {
         this.accidentLocation = accidentLocation;
     }
 
+    // Interface Implementation for generating report text
+    @Override
+    public String generateReportDetails() {
+        return "Accident ID: " + accidentId + "\n" +
+                "Date: " + getFormattedReportTime() + "\n" +
+                "Status: " + status + "\n" +
+                "Total Cost: " + totalCost + " EGP\n" +
+                "Fault Party: " + atFaultPartyId;
+    }
+
     public String getAccidentId() { return accidentId; }
     public String getReporterNationalId() { return reporterNationalId; }
     public String getOtherPartyNationalId() { return otherPartyNationalId; }
@@ -35,6 +52,7 @@ class Accident {
     public AccidentStatus getStatus() { return status; }
     public String getAssignedOfficerId() { return assignedOfficerId; }
     public String getAtFaultPartyId() { return atFaultPartyId; }
+    // Changed return type to ArrayList
     public ArrayList<String> getDamagedParts() { return damagedParts; }
     public double getTotalCost() { return totalCost; }
     public String getNotes() { return notes; }

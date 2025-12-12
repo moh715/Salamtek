@@ -6,8 +6,7 @@ import java.util.List;
 class Hub {
     private String hubId, cityName;
     private Location location;
-    private List<String> officerIds = new ArrayList<>();
-
+    private ArrayList<String> officerIds = new ArrayList<>();
     public Hub(String hubId, String cityName, Location location) {
         this.hubId = hubId;
         this.cityName = cityName;

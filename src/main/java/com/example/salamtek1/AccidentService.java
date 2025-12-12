@@ -1,5 +1,7 @@
 package com.example.salamtek1;
 
+import com.example.salamtek1.DatabaseManager;
+
 import java.util.ArrayList;
 
 class AccidentService {
@@ -7,24 +9,26 @@ class AccidentService {
 
     public String reportAccident(String reporterNationalId, String otherPartyNationalId,
                                  String reporterLicensePlate, String otherPartyLicensePlate,
-                                 Location accidentLocation) throws Exception {
-        if (!db.userExists(reporterNationalId)) throw new Exception("Reporter not found");
-        if (!db.userExists(otherPartyNationalId)) throw new Exception("Other party not found");
+                                 Location accidentLocation) throws SalamtekException {
+        // Validation using custom Exception
+        if (!db.userExists(reporterNationalId)) throw new SalamtekException("Reporter not found");
+        if (!db.userExists(otherPartyNationalId)) throw new SalamtekException("Other party not found");
         if (db.getVehicleByLicensePlate(reporterLicensePlate) == null)
-            throw new Exception("Reporter's vehicle not found");
+            throw new SalamtekException("Reporter's vehicle not found");
         if (db.getVehicleByLicensePlate(otherPartyLicensePlate) == null)
-            throw new Exception("Other party's vehicle not found");
+            throw new SalamtekException("Other party's vehicle not found");
 
-        Accident accident = new Accident(null, reporterNationalId, otherPartyNationalId,
+        Accident accident = new Accident((String) null, reporterNationalId, otherPartyNationalId,
                 reporterLicensePlate, otherPartyLicensePlate, accidentLocation);
         String accidentId = db.addAccident(accident);
         accident = db.getAccident(accidentId);
 
         Hub nearestHub = db.findNearestHub(accidentLocation);
-        if (nearestHub == null) throw new Exception("No hubs available");
+        if (nearestHub == null) throw new SalamtekException("No hubs available");
 
+        // Changed List to ArrayList
         ArrayList<Officer> availableOfficers = db.getAvailableOfficersAtHub(nearestHub.getHubId());
-        if (availableOfficers.isEmpty()) throw new Exception("No officers available");
+        if (availableOfficers.isEmpty()) throw new SalamtekException("No officers available");
 
         Officer officer = availableOfficers.get(0);
         officer.setAvailable(false);
@@ -40,6 +44,7 @@ class AccidentService {
         return accidentId;
     }
 
+    // Changed parameter to ArrayList
     public void completeInvestigation(String accidentId, String atFaultPartyId,
                                       ArrayList<String> damagedParts, String notes) {
         Accident accident = db.getAccident(accidentId);
@@ -72,12 +77,17 @@ class AccidentService {
 
         db.getOfficer(accident.getAssignedOfficerId()).setAvailable(true);
         new PaymentService().createPayment(accidentId, atFaultPartyId, victimNationalId, totalCost);
+
+        // FILE I/O call: Generate the text report
+        FileHandler.saveReportToFile(accident);
     }
 
+    // Changed return type to ArrayList
     public ArrayList<Accident> getUserAccidents(String nationalId) {
         return db.getAccidentsByUser(nationalId);
     }
 
+    // Changed return type to ArrayList
     public ArrayList<Accident> getOfficerAccidents(String officerId) {
         return db.getAccidentsByOfficer(officerId);
     }
