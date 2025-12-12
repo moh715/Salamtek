@@ -13,9 +13,17 @@ class Hub {
         this.location = location;
     }
 
-    public String getHubId() { return hubId; }
-    public String getCityName() { return cityName; }
-    public Location getLocation() { return location; }
-    public void addOfficer(String officerId) { officerIds.add(officerId); }
+    public String getHubId() {
+        return hubId;
+    }
+    public String getCityName() {
+        return cityName;
+    }
+    public Location getLocation() {
+        return location;
+    }
+    public void addOfficer(String officerId) {
+        officerIds.add(officerId);
+    }
 }
 
