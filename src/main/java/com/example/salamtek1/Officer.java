@@ -16,12 +16,28 @@ class Officer {
         this.hubId = hubId;
     }
 
-    public String getOfficerId() { return officerId; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public String getHubId() { return hubId; }
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean available) { isAvailable = available; }
-    public void assignAccident(String accidentId) { assignedAccidentIds.add(accidentId); }
+    public String getOfficerId() { 
+        return officerId; 
+    }
+    public String getName() {
+        return name;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getPassword() { 
+        return password;
+    }
+    public String getHubId() { 
+        return hubId; 
+    }
+    public boolean isAvailable() {
+        return isAvailable; 
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available; 
+    }
+    public void assignAccident(String accidentId) { 
+        assignedAccidentIds.add(accidentId); 
+    }
 }
