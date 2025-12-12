@@ -21,10 +21,20 @@ class Officer extends Person {
     @Override
     public String getRole() { return "Police Officer"; } // Polymorphism implementation
 
-    public String getOfficerId() { return officerId; }
-    public String getHubId() { return hubId; }
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean available) { isAvailable = available; }
-    public void assignAccident(String accidentId) { assignedAccidentIds.add(accidentId); }
+    public String getOfficerId() {
+        return officerId;
+    }
+    public String getHubId() {
+        return hubId;
+    }
+    public boolean isAvailable() { 
+        return isAvailable;
+    }
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+    public void assignAccident(String accidentId) {
+        assignedAccidentIds.add(accidentId);
+    }
 
 }
