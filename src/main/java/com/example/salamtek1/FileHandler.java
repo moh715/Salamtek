@@ -12,7 +12,8 @@ class FileHandler {
             writer.write(accident.generateReportDetails());
             writer.write("\n==============================\n");
             System.out.println(">> Report saved to file: " + filename);
-        } catch (IOException e) {
+        } 
+            catch (IOException e) {
             System.out.println("Error saving file: " + e.getMessage());
         }
     }
