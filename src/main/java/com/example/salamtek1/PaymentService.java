@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 class PaymentService {
     private DatabaseManager db = DatabaseManager.getInstance();
 
-    public String createPayment(String accidentId, String payerNationalId,
-                                String recipientNationalId, double amount) {
+    public String createPayment(String accidentId, String payerNationalId,String recipientNationalId, double amount) {
         Payment payment = new Payment(null, accidentId, payerNationalId, recipientNationalId, amount);
         String paymentId = db.addPayment(payment);
         payment = db.getPayment(paymentId);
