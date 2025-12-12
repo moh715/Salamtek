@@ -1,25 +1,40 @@
 package com.example.salamtek1;
 
+import com.example.salamtek1.Person;
+import com.example.salamtek1.SalamtekException;
+
 import java.util.ArrayList;
-import java.util.List;
 
-class User {
-    private String nationalId, name, phoneNumber, email, password;
-    private List<String> accidentIds = new ArrayList<>();
+class User extends Person {
+    private String nationalId;
+    private String phoneNumber;
+    private ArrayList<String> accidentIds = new ArrayList<>();
 
-    public User(String nationalId, String name, String phoneNumber, String email, String password) {
+    public User(String nationalId, String name, String phoneNumber, String email, String password) throws SalamtekException {
+        super(name, email, password);
+        if (nationalId.length() != 14) {
+            throw new SalamtekException("National ID must be exactly 14 digits.");
+        }
+
         this.nationalId = nationalId;
-        this.name = name;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
     }
 
-    public String getNationalId() { return nationalId; }
-    public String getName() { return name; }
-    public String getPhoneNumber() { return phoneNumber; }
-    public String getEmail() { return email; }
-    public String getPassword() { return password; }
-    public List<String> getAccidentIds() { return accidentIds; }
-    public void addAccidentId(String accidentId) { accidentIds.add(accidentId); }
+    @Override
+    public String getRole() {
+        return "Citizen";
+    } // Polymorphism implementation
+
+    public String getNationalId() {
+        return nationalId;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber; 
+    }
+    public ArrayList<String> getAccidentIds() {
+        return accidentIds;
+    }
+    public void addAccidentId(String accidentId) {
+        accidentIds.add(accidentId);
+    }
 }

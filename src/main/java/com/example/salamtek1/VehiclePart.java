@@ -9,9 +9,15 @@ class VehiclePart {
         this.price = price;
     }
 
-    public String getPartName() { return partName; }
-    public double getPrice() { return price; }
+    public String getPartName() { 
+        return partName;
+    }
+    public double getPrice() { 
+        return price;
+    }
 
     @Override
-    public String toString() { return partName + ": " + price + " EGP"; }
+    public String toString() {
+        return partName + ": " + price + " EGP";
+    }
 }

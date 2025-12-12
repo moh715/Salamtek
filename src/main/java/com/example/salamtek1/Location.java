@@ -1,6 +1,6 @@
 package com.example.salamtek1;
 
-class Location {
+class Location implements javax.xml.stream.Location {
     private double latitude, longitude;
 
     public Location(double latitude, double longitude) {
@@ -23,4 +23,29 @@ class Location {
 
     @Override
     public String toString() { return String.format("(%.4f, %.4f)", latitude, longitude); }
+
+    @Override
+    public int getLineNumber() {
+        return 0;
+    }
+
+    @Override
+    public int getColumnNumber() {
+        return 0;
+    }
+
+    @Override
+    public int getCharacterOffset() {
+        return 0;
+    }
+
+    @Override
+    public String getPublicId() {
+        return "";
+    }
+
+    @Override
+    public String getSystemId() {
+        return "";
+    }
 }
