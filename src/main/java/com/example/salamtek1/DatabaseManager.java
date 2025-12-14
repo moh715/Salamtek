@@ -147,12 +147,17 @@ class DatabaseManager {
     }
 
     private void saveVehicles() throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(DATA_DIRECTORY + "vehicles.txt"))) {
-            for (Vehicle vehicle : vehicles.values()) {
-                writer.println(vehicle.toFileFormat());
+        try (PrintWriter writer = new PrintWriter(
+                new FileWriter(DATA_DIRECTORY + "vehicles.txt"))) {
+
+            for (HashMap.Entry<String, Vehicle> entry : vehicles.entrySet()) {
+                writer.println(
+                        entry.getValue().toFileFormat() + "|" + entry.getKey()
+                );
             }
         }
     }
+
 
     private void loadVehicles() throws IOException {
         File file = new File(DATA_DIRECTORY + "vehicles.txt");
@@ -162,8 +167,9 @@ class DatabaseManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                if (parts[0].equals("VEHICLE") && parts.length >= 5) {
+                if (parts[0].equals("VEHICLE") && parts.length >= 6) {
                     Vehicle vehicle = new Vehicle(parts[1], parts[2], parts[3], Integer.parseInt(parts[4]));
+                    registerLicensePlate(parts[6], parts[1]);
                     // Load parts if they exist
                     for (int i = 5; i < parts.length; i++) {
                         String[] partData = parts[i].split(":");
@@ -411,7 +417,7 @@ class DatabaseManager {
                 .sum();
     }
 
-    // ==================== SAMPLE DATA INITIALIZATION ====================
+
 
     private void initializeSampleData() {
         try {

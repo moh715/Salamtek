@@ -1,0 +1,10 @@
+OFFICER|O101|Ahmed Hassan|ahmed@police.gov|pass101|HUB01|true
+OFFICER|O102|Mohamed Ali|mohamed@police.gov|pass102|HUB02|false
+OFFICER|O103|Youssef Omar|youssef@police.gov|pass103|HUB03|true
+OFFICER|O104|Mahmoud Adel|mahmoud@police.gov|pass104|HUB04|true
+OFFICER|O105|Khaled Said|khaled@police.gov|pass105|HUB05|false
+OFFICER|O106|Omar Nabil|omar@police.gov|pass106|HUB06|true
+OFFICER|O107|Hassan Mostafa|hassan@police.gov|pass107|HUB07|true
+OFFICER|O108|Tarek Fathy|tarek@police.gov|pass108|HUB08|false
+OFFICER|O109|Islam Reda|islam@police.gov|pass109|HUB09|true
+OFFICER|O110|Sherif Magdy|sherif@police.gov|pass110|HUB10|true

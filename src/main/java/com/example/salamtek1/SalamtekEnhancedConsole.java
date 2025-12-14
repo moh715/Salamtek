@@ -34,9 +34,6 @@ public class SalamtekEnhancedConsole {
         scanner.close();
     }
 
-    /**
-     * Input validation helper - ensures we get non-empty input
-     */
     private static String getValidInput() {
         String input = scanner.nextLine().trim();
         while (input.isEmpty()) {
@@ -46,10 +43,7 @@ public class SalamtekEnhancedConsole {
         return input;
     }
 
-    /**
-     * Demonstrates Polymorphism - unified login for both User and Officer
-     * The authenticatePerson method returns Person, but could be User or Officer
-     */
+
     private static void handleLogin() {
         System.out.println("\n========== LOGIN ==========");
         System.out.print("Enter ID/Email: ");
@@ -61,7 +55,7 @@ public class SalamtekEnhancedConsole {
         try {
             // Polymorphism in action - Person can be User or Officer
             currentPerson = db.authenticatePerson(identifier, password);
-            System.out.println("\n✓ Welcome, " + currentPerson.getName() + " (" + currentPerson.getRole() + ")");
+            System.out.println("\n Welcome, " + currentPerson.getName() + " (" + currentPerson.getRole() + ")");
 
             // Runtime polymorphism - call appropriate menu based on actual type
             if (currentPerson instanceof User) {
@@ -74,9 +68,6 @@ public class SalamtekEnhancedConsole {
         }
     }
 
-    /**
-     * Exception handling and input validation demonstration
-     */
     private static void handleRegistration() {
         System.out.println("\n========== REGISTRATION ==========");
 
