@@ -2,8 +2,7 @@ package com.example.salamtek1;
 
 class Location implements javax.xml.stream.Location {
     private double latitude, longitude;
-
-    public Location(double latitude, double longitude) {
+     public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -20,32 +19,30 @@ class Location implements javax.xml.stream.Location {
                 Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2);
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     }
-
-    @Override
+     @Override
     public String toString() { return String.format("(%.4f, %.4f)", latitude, longitude); }
 
     @Override
     public int getLineNumber() {
-        return 0;
+    return 0;
     }
 
     @Override
     public int getColumnNumber() {
-        return 0;
+    return 0;
     }
-
-    @Override
+@Override
     public int getCharacterOffset() {
         return 0;
     }
 
     @Override
     public String getPublicId() {
-        return "";
+    return "";
     }
 
-    @Override
+ @Override
     public String getSystemId() {
-        return "";
+    return "";
     }
 }
