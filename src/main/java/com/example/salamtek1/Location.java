@@ -10,14 +10,10 @@ class Location implements Persistable {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
 
-    /**
-     * Haversine formula - calculates actual distance on Earth's curved surface
-     * This is more accurate than simple Euclidean distance for geographic coordinates
-     */
+
     public double distanceTo(Location other) {
         final int EARTH_RADIUS = 6371; // kilometers
 
@@ -40,12 +36,10 @@ class Location implements Persistable {
     public String toFileFormat() {
         return String.format("%.6f,%.6f", latitude, longitude);
     }
-
     public static Location fromFileFormat(String data) {
         String[] parts = data.split(",");
         return new Location(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
     }
-
     @Override
     public String toString() {
         return String.format("(%.4f, %.4f)", latitude, longitude);

@@ -150,18 +150,12 @@ public class HelloApplication extends Application {
                 messageLabel.setText("Error: " + ex.getMessage());
             }
         });
-
         Button backBtn = createStyledButton("Back", "#757575");
         backBtn.setOnAction(e -> showLoginScreen());
-
-
-
-        root.getChildren().addAll(title, nationalIdField, nameField, phoneField, emailField,
-                passwordField, messageLabel, registerBtn, backBtn);
+        root.getChildren().addAll(title, nationalIdField, nameField, phoneField, emailField, passwordField, messageLabel, registerBtn, backBtn);
         Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
     }
-
 
     private void showUserDashboard() {
         BorderPane root = new BorderPane();
@@ -621,7 +615,6 @@ public class HelloApplication extends Application {
         dialog.show();
     }
 
-    // ========== STYLING HELPER METHODS ==========
     private Button createStyledButton(String text, String color) {
         Button btn = new Button(text);
         btn.setStyle(String.format(
@@ -632,7 +625,6 @@ public class HelloApplication extends Application {
                         "-fx-background-radius: 5; " +
                         "-fx-cursor: hand;", color));
         btn.setMinWidth(200);
-
         btn.setOnMouseEntered(e ->
                 btn.setStyle(btn.getStyle() + "-fx-opacity: 0.8;"));
         btn.setOnMouseExited(e ->
@@ -648,8 +640,6 @@ public class HelloApplication extends Application {
         btn.setStyle(btn.getStyle() + "-fx-font-size: 18px;");
         return btn;
     }
-
-    // ========== DIALOG METHODS ==========
     private void showSuccessDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -657,7 +647,6 @@ public class HelloApplication extends Application {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
     private void showErrorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -665,7 +654,6 @@ public class HelloApplication extends Application {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

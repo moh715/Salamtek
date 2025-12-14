@@ -34,7 +34,6 @@ class PaymentService {
         double totalAvailable = paymentsReceivable.stream()
                 .filter(p -> p.getStatus() == PaymentStatus.AVAILABLE)
                 .mapToDouble(Payment::getAmount).sum();
-
         summary.put("totalOwed", totalOwed);
         summary.put("totalAvailable", totalAvailable);
         summary.put("paymentsOwed", paymentsOwed);

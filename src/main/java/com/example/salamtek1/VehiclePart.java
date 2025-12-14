@@ -8,9 +8,10 @@ class VehiclePart implements Persistable {
         this.partName = partName;
         this.price = price;
     }
-
     public String getPartName() { return partName; }
     public double getPrice() { return price; }
+
+
 
     @Override
     public String toFileFormat() {

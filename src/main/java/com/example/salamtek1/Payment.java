@@ -36,10 +36,15 @@ class Payment implements Persistable, Validatable {
             throw new ValidationException("Payer and recipient must be different");
         }
     }
-
-    public String getPaymentId() { return paymentId; }
-    public String getAccidentId() { return accidentId; }
-    public String getPayerNationalId() { return payerNationalId; }
+    public String getPaymentId() {
+        return paymentId;
+    }
+    public String getAccidentId() {
+        return accidentId;
+    }
+    public String getPayerNationalId() {
+        return payerNationalId;
+    }
     public String getRecipientNationalId() { return recipientNationalId; }
     public double getAmount() { return amount; }
     public PaymentStatus getStatus() { return status; }
@@ -50,6 +55,7 @@ class Payment implements Persistable, Validatable {
     public boolean isLate() {
         return LocalDateTime.now().isAfter(dueDate) && status == PaymentStatus.PENDING;
     }
+
 
     public double getLateFee() {
         if (isLate()) {
@@ -67,16 +73,13 @@ class Payment implements Persistable, Validatable {
         this.paidDate = LocalDateTime.now();
         this.paymentMethod = paymentMethod;
     }
-
     public void markAsAvailable() {
         this.status = PaymentStatus.AVAILABLE;
     }
-
     public String getFormattedDueDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return dueDate.format(formatter);
     }
-
     @Override
     public String toFileFormat() {
         return String.format("PAYMENT|%s|%s|%s|%s|%.2f|%s",

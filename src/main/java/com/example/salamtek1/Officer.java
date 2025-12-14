@@ -52,11 +52,20 @@ class Officer extends Person implements Validatable {
         return String.format("OFFICER|%s|%s|%s|%s|%s|%b",
                 officerId, name, email, password, hubId, isAvailable);
     }
-
-    public String getOfficerId() { return officerId; }
-    public String getHubId() { return hubId; }
-    public boolean isAvailable() { return isAvailable; }
+    public String getOfficerId() {
+        return officerId;
+    }
+    public String getHubId() {
+        return hubId;
+    }
+    public boolean isAvailable() {
+        return isAvailable;
+    }
     public void setAvailable(boolean available) { this.isAvailable = available; }
-    public ArrayList<String> getAssignedAccidentIds() { return assignedAccidentIds; }
-    public void assignAccident(String accidentId) { this.assignedAccidentIds.add(accidentId); }
+    public ArrayList<String> getAssignedAccidentIds() {
+        return assignedAccidentIds;
+    }
+    public void assignAccident(String accidentId) {
+        this.assignedAccidentIds.add(accidentId);
+    }
 }

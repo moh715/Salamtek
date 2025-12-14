@@ -105,7 +105,6 @@ class DatabaseManager {
             }
         }
     }
-
     private void loadOfficers() throws IOException {
         File file = new File(DATA_DIRECTORY + "officers.txt");
         if (!file.exists()) throw new IOException("Officers file not found");
@@ -128,7 +127,6 @@ class DatabaseManager {
             }
         }
     }
-
     private void loadHubs() throws IOException {
         File file = new File(DATA_DIRECTORY + "hubs.txt");
         if (!file.exists()) throw new IOException("Hubs file not found");
@@ -157,8 +155,6 @@ class DatabaseManager {
             }
         }
     }
-
-
     private void loadVehicles() throws IOException {
         File file = new File(DATA_DIRECTORY + "vehicles.txt");
         if (!file.exists()) throw new IOException("Vehicles file not found");
@@ -202,7 +198,7 @@ class DatabaseManager {
 
 
     public void addUser(User user) throws ValidationException {
-        user.validate(); // Input validation before adding
+        user.validate(); // input validation before adding
         users.put(user.getNationalId(), user);
         try {
             saveUsers(); // Persist to file immediately
@@ -229,8 +225,7 @@ class DatabaseManager {
         if (user != null && user.authenticate(identifier, password)) {
             return user;
         }
-
-        // Try as officer
+        // try as officer
         for (Officer officer : officers.values()) {
             if (officer.authenticate(identifier, password)) {
                 return officer;
@@ -322,9 +317,6 @@ class DatabaseManager {
         }
         return vehicles.get(vehicleId);
     }
-
-
-
     public String addAccident(Accident accident) throws ValidationException {
         accident.validate();
         String id = "ACC" + String.format("%04d", nextAccidentId++);
@@ -360,13 +352,11 @@ class DatabaseManager {
                         a.getOtherPartyNationalId().equals(nationalId))
                 .collect(Collectors.toList());
     }
-
     public ArrayList<Accident> getAccidentsByOfficer(String officerId) {
         return (ArrayList<Accident>) accidents.values().stream()
                 .filter(a -> officerId.equals(a.getAssignedOfficerId()))
                 .collect(Collectors.toList());
     }
-
 
     public String addPayment(Payment payment) throws ValidationException {
         payment.validate();
@@ -387,6 +377,7 @@ class DatabaseManager {
         }
         return payment;
     }
+
 
     public void updatePayment(Payment payment) {
         payments.put(payment.getPaymentId(), payment);
