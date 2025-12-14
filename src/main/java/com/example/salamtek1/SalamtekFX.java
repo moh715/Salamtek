@@ -1,5 +1,7 @@
 package com.example.salamtek1;
 
+
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -87,8 +89,8 @@ public class SalamtekFX extends Application {
 
         Button loginBtn = createStyledButton("Login", "#4CAF50");
         loginBtn.setOnAction(e -> {
-            User user = db.authenticateUser(nationalIdField.getText().trim(), passwordField.getText());
-            if (user != null) {
+            User user = db.getUser(nationalIdField.getText().trim());
+            if (user != null && user.getPassword().equals(passwordField.getText())) {
                 currentUser = user;
                 showUserDashboard();
             } else {
@@ -277,7 +279,7 @@ public class SalamtekFX extends Application {
         Label title = new Label("Payment Center");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 
-        HashMap<String, Object> summary = (HashMap<String, Object>) paymentService.getPaymentSummary(currentUser.getNationalId());
+        HashMap<String, Object> summary = paymentService.getPaymentSummary(currentUser.getNationalId());
         double owed = (double) summary.get("totalOwed");
         double available = (double) summary.get("totalAvailable");
 
@@ -291,7 +293,7 @@ public class SalamtekFX extends Application {
 
         Button payBtn = createStyledButton("Pay Outstanding Bills", "#F44336");
         payBtn.setDisable(owed == 0);
-        payBtn.setOnAction(e -> showPayBillsDialog((List<Payment>) summary.get("paymentsOwed")));
+        payBtn.setOnAction(e -> showPayBillsDialog((ArrayList<Payment>) summary.get("paymentsOwed")));
 
         Button withdrawBtn = createStyledButton("Withdraw Available Funds", "#4CAF50");
         withdrawBtn.setDisable(available == 0);
@@ -323,7 +325,7 @@ public class SalamtekFX extends Application {
         ScrollPane scrollPane = new ScrollPane();
         VBox accidentsList = new VBox(10);
 
-        List<Accident> accidents = accidentService.getUserAccidents(currentUser.getNationalId());
+        ArrayList<Accident> accidents = accidentService.getUserAccidents(currentUser.getNationalId());
 
         for (Accident a : accidents) {
             VBox accidentBox = new VBox(5);
@@ -450,7 +452,7 @@ public class SalamtekFX extends Application {
         ScrollPane scrollPane = new ScrollPane();
         VBox accidentsList = new VBox(10);
 
-        List<Accident> accidents = accidentService.getOfficerAccidents(currentOfficer.getOfficerId());
+        ArrayList<Accident> accidents = accidentService.getOfficerAccidents(currentOfficer.getOfficerId());
 
         for (Accident a : accidents) {
             VBox accidentBox = new VBox(5);
@@ -485,10 +487,10 @@ public class SalamtekFX extends Application {
 
     // ========== INVESTIGATION FORM ==========
     private void showInvestigationForm() {
-        List<Accident> pendingAccidents = accidentService.getOfficerAccidents(currentOfficer.getOfficerId())
+        ArrayList<Accident> pendingAccidents = accidentService.getOfficerAccidents(currentOfficer.getOfficerId())
                 .stream().filter(a -> a.getStatus() != AccidentStatus.COMPLETED &&
                         a.getStatus() != AccidentStatus.PAID)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
 
         if (pendingAccidents.isEmpty()) {
             showErrorDialog("No Pending Investigations", "You have no accidents pending investigation.");
@@ -516,7 +518,7 @@ public class SalamtekFX extends Application {
         party2Radio.setToggleGroup(group);
 
         ListView<String> partsListView = new ListView<>();
-        partsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        partsListView.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 
         accidentCombo.setOnAction(e -> {
             String accidentId = accidentCombo.getValue();
@@ -559,10 +561,10 @@ public class SalamtekFX extends Application {
             String atFaultId = party1Radio.isSelected() ?
                     a.getReporterNationalId() : a.getOtherPartyNationalId();
 
-            List<String> selectedParts = new ArrayList<>(partsListView.getSelectionModel().getSelectedItems());
+            ArrayList<String> selectedParts = new ArrayList<>(partsListView.getSelectionModel().getSelectedItems());
 
             try {
-                accidentService.completeInvestigation(accidentId, atFaultId, (ArrayList<String>) selectedParts, notesArea.getText());
+                accidentService.completeInvestigation(accidentId, atFaultId, selectedParts, notesArea.getText());
                 showSuccessDialog("Investigation Complete", "Report filed successfully!");
                 showOfficerDashboard();
             } catch (Exception ex) {
@@ -584,10 +586,11 @@ public class SalamtekFX extends Application {
     }
 
     // ========== HELPER METHODS FOR PAY BILLS DIALOG ==========
-    private void showPayBillsDialog(List<Payment> payments) {
-        List<Payment> unpaid = payments.stream()
-                .filter(p -> p.getStatus() != PaymentStatus.PAID)
-                .collect(Collectors.toList());
+    private void showPayBillsDialog(ArrayList<Payment> payments) {
+        ArrayList<Payment> unpaid = payments.stream()
+                .filter(p -> p.getStatus() == PaymentStatus.PENDING ||
+                        p.getStatus() == PaymentStatus.LATE)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         if (unpaid.isEmpty()) {
             showErrorDialog("No Bills", "You have no outstanding payments.");

@@ -1,6 +1,6 @@
 package com.example.salamtek1;
 
-class VehiclePart {
+class VehiclePart implements Persistable {
     private String partName;
     private double price;
 
@@ -9,11 +9,12 @@ class VehiclePart {
         this.price = price;
     }
 
-    public String getPartName() { 
-        return partName;
-    }
-    public double getPrice() { 
-        return price;
+    public String getPartName() { return partName; }
+    public double getPrice() { return price; }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("%s:%.2f", partName, price);
     }
 
     @Override

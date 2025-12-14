@@ -1,8 +1,12 @@
 package com.example.salamtek1;
 
-class Location implements javax.xml.stream.Location {
-    private double latitude, longitude;
-     public Location(double latitude, double longitude) {
+
+
+class Location implements Persistable {
+    private double latitude;
+    private double longitude;
+
+    public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -10,39 +14,40 @@ class Location implements javax.xml.stream.Location {
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
 
+    /**
+     * Haversine formula - calculates actual distance on Earth's curved surface
+     * This is more accurate than simple Euclidean distance for geographic coordinates
+     */
     public double distanceTo(Location other) {
-        final int R = 6371;
-        double lat1 = Math.toRadians(latitude), lat2 = Math.toRadians(other.latitude);
-        double dLat = Math.toRadians(other.latitude - latitude);
-        double dLon = Math.toRadians(other.longitude - longitude);
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon/2) * Math.sin(dLon/2);
-        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    }
-     @Override
-    public String toString() { return String.format("(%.4f, %.4f)", latitude, longitude); }
+        final int EARTH_RADIUS = 6371; // kilometers
 
-    @Override
-    public int getLineNumber() {
-    return 0;
-    }
+        double lat1Rad = Math.toRadians(this.latitude);
+        double lat2Rad = Math.toRadians(other.latitude);
+        double deltaLat = Math.toRadians(other.latitude - this.latitude);
+        double deltaLon = Math.toRadians(other.longitude - this.longitude);
 
-    @Override
-    public int getColumnNumber() {
-    return 0;
-    }
-@Override
-    public int getCharacterOffset() {
-        return 0;
+        // Haversine formula calculation
+        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+                        Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c;
     }
 
     @Override
-    public String getPublicId() {
-    return "";
+    public String toFileFormat() {
+        return String.format("%.6f,%.6f", latitude, longitude);
     }
 
- @Override
-    public String getSystemId() {
-    return "";
+    public static Location fromFileFormat(String data) {
+        String[] parts = data.split(",");
+        return new Location(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%.4f, %.4f)", latitude, longitude);
     }
 }
