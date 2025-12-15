@@ -29,8 +29,6 @@ class DatabaseManager {
         payments = new HashMap<>();
         licensePlateToVehicle = new HashMap<>();
 
-        // Create data directory if it doesn't exist
-        new File(DATA_DIRECTORY).mkdirs();
 
         // Try to load data from files, if it fails, use sample data
         if (!loadDataFromFiles()) {
@@ -148,9 +146,21 @@ class DatabaseManager {
                 new FileWriter(DATA_DIRECTORY + "vehicles.txt"))) {
 
             for (HashMap.Entry<String, Vehicle> entry : vehicles.entrySet()) {
-                writer.println(
-                        entry.getValue().toFileFormat() + "|" + entry.getKey()
-                );
+                String[] parts = entry.getValue().toFileFormat().split("\\|");
+                String plate = "";
+                for (HashMap.Entry<String, String> e : licensePlateToVehicle.entrySet()) {
+                    if (e.getValue().equals(parts[1])) {
+                        plate = e.getKey();
+                        break;
+                    }
+                    writer.println(
+                            String.join("|",
+                                    parts[0], parts[1], parts[2], parts[3], parts[4],
+                                    plate,
+                                    parts[5], parts[6]
+                            )
+                    );
+                }
             }
         }
     }
@@ -163,7 +173,7 @@ class DatabaseManager {
                 String[] parts = line.split("\\|");
                 if (parts[0].equals("VEHICLE") && parts.length >= 6) {
                     Vehicle vehicle = new Vehicle(parts[1], parts[2], parts[3], Integer.parseInt(parts[4]));
-                    registerLicensePlate(parts[6], parts[1]);
+                    registerLicensePlate(parts[5], parts[1]);
                     // Load parts if they exist
                     for (int i = 5; i < parts.length; i++) {
                         String[] partData = parts[i].split(":");
