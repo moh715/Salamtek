@@ -158,7 +158,6 @@ class DatabaseManager {
     private void loadVehicles() throws IOException {
         File file = new File(DATA_DIRECTORY + "vehicles.txt");
         if (!file.exists()) throw new IOException("Vehicles file not found");
-
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
