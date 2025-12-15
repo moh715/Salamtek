@@ -120,10 +120,10 @@ class Accident implements Persistable, Validatable {
                 report.append("\n--- Investigation Results ---\n");
                 String atFaultName;
                 if(atFaultPartyId.equals(reporterNationalId)) {
-                     atFaultName = reporter.getName();
+                    atFaultName = reporter.getName();
                 }
                 else {
-                     atFaultName = otherParty.getName();
+                    atFaultName = otherParty.getName();
                 }
                 report.append("At Fault: ").append(atFaultName).append("\n");
                 report.append("Total Cost: ").append(String.format("%.2f EGP", totalCost)).append("\n");
