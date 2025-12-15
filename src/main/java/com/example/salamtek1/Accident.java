@@ -91,7 +91,6 @@ class Accident implements Persistable, Validatable {
     }
     public String generateReportDetails(DatabaseManager db) {
         StringBuilder report = new StringBuilder();
-        report.append("========== ACCIDENT REPORT ==========\n");
         report.append("Accident ID: ").append(accidentId).append("\n");
         report.append("Report Date: ").append(getFormattedReportTime()).append("\n");
         report.append("Status: ").append(status).append("\n");
@@ -116,8 +115,13 @@ class Accident implements Persistable, Validatable {
 
             if (status == AccidentStatus.COMPLETED || status == AccidentStatus.PAID) {
                 report.append("\n--- Investigation Results ---\n");
-                String atFaultName = atFaultPartyId.equals(reporterNationalId) ?
-                        reporter.getName() : otherParty.getName();
+                String atFaultName;
+                if(atFaultPartyId.equals(reporterNationalId)) {
+                    atFaultName = reporter.getName();
+                }
+                else {
+                    atFaultName = otherParty.getName();
+                }
                 report.append("At Fault: ").append(atFaultName).append("\n");
                 report.append("Total Cost: ").append(String.format("%.2f EGP", totalCost)).append("\n");
 
@@ -133,7 +137,6 @@ class Accident implements Persistable, Validatable {
             report.append("Error generating full report: ").append(e.getMessage()).append("\n");
         }
 
-        report.append("=====================================");
         return report.toString();
     }
 }
