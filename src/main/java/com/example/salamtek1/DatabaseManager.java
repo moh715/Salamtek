@@ -68,7 +68,7 @@ class DatabaseManager {
             savePayments();
             System.out.println(" All data saved successfully");
         } catch (IOException e) {
-            System.err.println(" Error saving data: " + e.getMessage());
+            System.out.println(" Error saving data: " + e.getMessage());
         }
     }
 
@@ -211,7 +211,7 @@ class DatabaseManager {
         try {
             saveUsers(); // Persist to file immediately
         } catch (IOException e) {
-            System.err.println("Warning: Could not save user to file");
+            System.out.println("Warning: Could not save user to file");
         }
     }
     public User getUser(String nationalId) throws IllegalArgumentException {
@@ -254,7 +254,7 @@ class DatabaseManager {
         try {
             saveOfficers();
         } catch (IOException e) {
-            System.err.println("Warning: Could not save officer to file");
+            System.out.println("Warning: Could not save officer to file");
         }
     }
 
@@ -331,7 +331,7 @@ class DatabaseManager {
         try {
             saveAccidents();
         } catch (IOException e) {
-            System.err.println("Warning: Could not save accident to file");
+            System.out.println("Warning: Could not save accident to file");
         }
         return id;
     }
@@ -349,7 +349,7 @@ class DatabaseManager {
         try {
             saveAccidents();
         } catch (IOException e) {
-            System.err.println("Warning: Could not save accident to file");
+            System.out.println("Warning: Could not save accident to file");
         }
     }
     public ArrayList<Accident> getAccidentsByUser(String nationalId) {
@@ -371,7 +371,7 @@ class DatabaseManager {
         try {
             savePayments();
         } catch (IOException e) {
-            System.err.println("Warning: Could not save payment to file");
+            System.out.println("Warning: Could not save payment to file");
         }
         return id;
     }
@@ -390,7 +390,7 @@ class DatabaseManager {
         try {
             savePayments();
         } catch (IOException e) {
-            System.err.println("Warning: Could not save payment to file");
+            System.out.println("Warning: Could not save payment to file");
         }
     }
 
@@ -447,7 +447,7 @@ class DatabaseManager {
             System.out.println("Sample data initialized");
             saveAllData(); // Save sample data to files
         } catch (ValidationException e) {
-            System.err.println("Error initializing data: " + e.getMessage());
+            System.out.println("Error initializing data: " + e.getMessage());
         }
     }
 
