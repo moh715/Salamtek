@@ -69,7 +69,7 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void handleRegistration() {
-        System.out.println("\n========== REGISTRATION ==========");
+        System.out.println("\nREGISTRATION");
 
         try {
             System.out.print("National ID (14 digits): ");
@@ -96,19 +96,18 @@ public class SalamtekEnhancedConsole {
             User newUser = new User(nationalId, name, phone, email, password);
             db.addUser(newUser); // This will validate and save
 
-            System.out.println("\n✓ Registration successful!");
+            System.out.println("\n Registration successful!");
 
         } catch (ValidationException e) {
             System.out.println("✗ Validation Error: " + e.getMessage());
         }
     }
 
-    // ==================== USER MENU ====================
 
     private static void showUserMenu(User user) {
         boolean active = true;
         while (active) {
-            System.out.println("\n========== USER MENU ==========");
+            System.out.println("\nUSER MENU");
             System.out.println("User: " + user.getName());
             System.out.println("1. Report Accident");
             System.out.println("2. Pay or Receive Bill");
@@ -133,56 +132,43 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void reportAccident(User user) throws Exception {
-        System.out.println("\n========== REPORT ACCIDENT ==========");
+        System.out.println("\nREPORT ACCIDENT");
         System.out.print("Other party's National ID: ");
         String otherId = getValidInput();
-
         System.out.print("Your license plate: ");
         String myPlate = getValidInput().toUpperCase();
-
         System.out.print("Other party's license plate: ");
         String otherPlate = getValidInput().toUpperCase();
-
         System.out.print("Latitude (e.g., 30.0444): ");
         double lat = Double.parseDouble(getValidInput());
-
         System.out.print("Longitude (e.g., 31.2357): ");
         double lon = Double.parseDouble(getValidInput());
-
         // Exception handling in action
         try {
             String accId = accidentService.reportAccident(
                     user.getNationalId(), otherId, myPlate, otherPlate, new Location(lat, lon)
             );
-
             Accident acc = db.getAccident(accId);
             Officer off = db.getOfficer(acc.getAssignedOfficerId());
             Hub hub = db.getHub(off.getHubId());
-
-            System.out.println("\n✓ ACCIDENT REPORTED!");
+            System.out.println("\n ACCIDENT REPORTED!");
             System.out.println("Accident ID: " + accId);
             System.out.println("Officer " + off.getName() + " dispatched from " + hub.getCityName());
-
         } catch (IllegalArgumentException e) {
             System.out.println("✗ " + e.getMessage());
         }
     }
-
     private static void viewAccidents(User user) {
-        System.out.println("\n========== MY ACCIDENTS ==========");
+        System.out.println("\nMY ACCIDENTS");
         ArrayList<Accident> accidents = accidentService.getUserAccidents(user.getNationalId());
-
         if (accidents.isEmpty()) {
             System.out.println("No accidents on record.");
             return;
         }
-
         for (Accident a : accidents) {
-            System.out.println("\n─────────────────────────────────");
-            System.out.println("ID: " + a.getAccidentId());
+            System.out.println("\nID: " + a.getAccidentId());
             System.out.println("Date: " + a.getFormattedReportTime());
             System.out.println("Status: " + a.getStatus());
-
             if (a.getStatus() == AccidentStatus.COMPLETED || a.getStatus() == AccidentStatus.PAID) {
                 boolean userAtFault = a.getAtFaultPartyId().equals(user.getNationalId());
                 System.out.println("At Fault: " + (userAtFault ? "You" : "Other Party"));
@@ -192,7 +178,7 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void paymentMenu(User user) {
-        System.out.println("\n========== PAYMENT CENTER ==========");
+        System.out.println("\nPAYMENT CENTER");
         HashMap<String, Object> summary = paymentService.getPaymentSummary(user.getNationalId());
         double owed = (double) summary.get("totalOwed");
         double available = (double) summary.get("totalAvailable");
@@ -231,7 +217,7 @@ public class SalamtekEnhancedConsole {
             return;
         }
 
-        System.out.println("\n========== PAY BILLS ==========");
+        System.out.println("\nPAY BILLS");
         for (int i = 0; i < unpaid.size(); i++) {
             Payment p = unpaid.get(i);
             System.out.println((i+1) + ". " + p.getPaymentId() + " - " +
@@ -261,13 +247,12 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void withdrawFunds(User user) {
-        System.out.println("\n========== WITHDRAW FUNDS ==========");
+        System.out.println("\nWITHDRAW FUNDS");
         double available = db.getTotalAvailable(user.getNationalId());
         System.out.println("Available: " + available + " EGP");
 
         System.out.print("Bank account: ");
         String account = getValidInput();
-
         System.out.print("Confirm? (yes/no): ");
         if (getValidInput().equalsIgnoreCase("yes")) {
             paymentService.withdrawFunds(user.getNationalId());
@@ -275,12 +260,10 @@ public class SalamtekEnhancedConsole {
         }
     }
 
-    // ==================== OFFICER MENU ====================
-
     private static void showOfficerMenu(Officer officer) {
         boolean active = true;
         while (active) {
-            System.out.println("\n========== OFFICER MENU ==========");
+            System.out.println("\nOFFICER MENU");
             System.out.println("Officer: " + officer.getName());
             System.out.println("Status: " + (officer.isAvailable() ? "Available" : "On Assignment"));
             System.out.println("\n1. View Assigned Accidents");
@@ -304,7 +287,7 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void viewOfficerAccidents(Officer officer) throws IllegalArgumentException {
-        System.out.println("\n========== ASSIGNED ACCIDENTS ==========");
+        System.out.println("\nASSIGNED ACCIDENTS");
         ArrayList<Accident> accidents = accidentService.getOfficerAccidents(officer.getOfficerId());
 
         if (accidents.isEmpty()) {
@@ -313,7 +296,7 @@ public class SalamtekEnhancedConsole {
         }
 
         for (Accident a : accidents) {
-            System.out.println("\n─────────────────────────────────");
+            System.out.println("\n");
             System.out.println("ID: " + a.getAccidentId());
             System.out.println("Status: " + a.getStatus());
             System.out.println("Party 1: " + db.getUser(a.getReporterNationalId()).getName());
@@ -322,7 +305,7 @@ public class SalamtekEnhancedConsole {
     }
 
     private static void completeInvestigation(Officer officer) throws Exception {
-        System.out.println("\n========== COMPLETE INVESTIGATION ==========");
+        System.out.println("\nCOMPLETE INVESTIGATION");
 
         ArrayList<Accident> accidents = (ArrayList<Accident>) accidentService.getOfficerAccidents(officer.getOfficerId())
                 .stream().filter(a -> a.getStatus() != AccidentStatus.COMPLETED &&
@@ -340,16 +323,12 @@ public class SalamtekEnhancedConsole {
 
         System.out.print("\nSelect #: ");
         int choice = Integer.parseInt(getValidInput());
-
         if (choice < 1 || choice > accidents.size()) return;
-
         Accident a = accidents.get(choice-1);
         a.setStatus(AccidentStatus.UNDER_INVESTIGATION);
         db.updateAccident(a);
-
         User p1 = db.getUser(a.getReporterNationalId());
         User p2 = db.getUser(a.getOtherPartyNationalId());
-
         System.out.println("\nParty 1: " + p1.getName() + " (" + a.getReporterLicensePlate() + ")");
         System.out.println("Party 2: " + p2.getName() + " (" + a.getOtherPartyLicensePlate() + ")");
         System.out.print("\nWho is at fault? (1 or 2): ");
@@ -381,8 +360,7 @@ public class SalamtekEnhancedConsole {
 
         System.out.print("\nNotes: ");
         String notes = getValidInput();
-
         accidentService.completeInvestigation(a.getAccidentId(), atFault, damagedParts, notes);
-        System.out.println("\n✓ Investigation complete!");
+        System.out.println("\n Investigation complete!");
     }
 }

@@ -9,7 +9,7 @@ class FileHandler {
         String filename = "Accident_Report_" + accident.getAccidentId() + ".txt";
         try (FileWriter writer = new FileWriter(filename)) {
         writer.write(accident.generateReportDetails(DatabaseManager.getInstance()));
-        System.out.println(">> Report saved to file: " + filename);
+        System.out.println("Report saved to file: " + filename);
         } 
    catch (IOException e) {
             System.out.println("Error saving file: " + e.getMessage());
