@@ -1,6 +1,5 @@
 package com.example.salamtek1;
 
-import com.example.salamtek1.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -69,9 +68,9 @@ class DatabaseManager {
             saveVehicles();
             saveAccidents();
             savePayments();
-            System.out.println("✓ All data saved successfully");
+            System.out.println(" All data saved successfully");
         } catch (IOException e) {
-            System.err.println("✗ Error saving data: " + e.getMessage());
+            System.err.println(" Error saving data: " + e.getMessage());
         }
     }
 
@@ -205,7 +204,6 @@ class DatabaseManager {
             System.err.println("Warning: Could not save user to file");
         }
     }
-
     public User getUser(String nationalId) throws IllegalArgumentException {
         User user = users.get(nationalId);
         if (user == null) {
@@ -344,7 +342,6 @@ class DatabaseManager {
             System.err.println("Warning: Could not save accident to file");
         }
     }
-
     public ArrayList<Accident> getAccidentsByUser(String nationalId) {
         return (ArrayList<Accident>) accidents.values().stream()
                 .filter(a -> a.getReporterNationalId().equals(nationalId) ||
@@ -414,15 +411,12 @@ class DatabaseManager {
             addHub(new Hub("HUB001", "Cairo - Nasr City", new Location(30.0444, 31.2357)));
             addHub(new Hub("HUB002", "Cairo - Heliopolis", new Location(30.0908, 31.3219)));
             addHub(new Hub("HUB003", "Giza - Mohandessin", new Location(30.0626, 31.2003)));
-
             addOfficer(new Officer("OFF001", "Ahmed Hassan", "ahmed.hassan@police.gov.eg", "pass123", "HUB001"));
             addOfficer(new Officer("OFF002", "Mohamed Ali", "mohamed.ali@police.gov.eg", "pass123", "HUB001"));
             addOfficer(new Officer("OFF003", "Sara Ibrahim", "sara.ibrahim@police.gov.eg", "pass123", "HUB002"));
-
             addUser(new User("11111111111111", "Karim Ahmed", "01012345678", "karim@email.com", "123456"));
             addUser(new User("22222222222222", "Nour Mohamed", "01098765432", "nour@email.com", "123456"));
             addUser(new User("28801151234569", "Youssef Ibrahim", "01187654321", "youssef@email.com", "user123"));
-
             Vehicle hyundai = new Vehicle("VEH001", "Hyundai", "Avante", 2018);
             hyundai.addPart("Front Bumper", 2500.0);
             hyundai.addPart("Left Headlight", 3000.0);
@@ -446,7 +440,6 @@ class DatabaseManager {
             System.err.println("Error initializing data: " + e.getMessage());
         }
     }
-
 
     public Officer authenticateOfficer(String trim, String text) {
         for (Officer officer : officers.values()) {

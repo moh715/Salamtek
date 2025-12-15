@@ -11,7 +11,7 @@ enum AccidentStatus { REPORTED, OFFICER_ASSIGNED, UNDER_INVESTIGATION, COMPLETED
 // Implements Reportable interface
 class Accident implements Persistable, Validatable {
     private String accidentId;
-    private String reporterNationalIdy, otherPartyNationalId;
+    private String reporterNationalId, otherPartyNationalId;
     private String reporterLicensePlate, otherPartyLicensePlate;
     private Location accidentLocation;  // Composition - Accident HAS-A Location
     private LocalDateTime reportTime;
@@ -40,7 +40,7 @@ class Accident implements Persistable, Validatable {
 
     public Accident(String reporterNationalId, String otherPartyNationalId,
                     String reporterLicensePlate, String otherPartyLicensePlate, Location accidentLocation) {
-        this("ACC" + (idCounter++), reporterNationalId, otherPartyNationalId,
+        this("ACC" + String.format("%04d",idCounter++), reporterNationalId, otherPartyNationalId,
                 reporterLicensePlate, otherPartyLicensePlate, accidentLocation);
     }
 
