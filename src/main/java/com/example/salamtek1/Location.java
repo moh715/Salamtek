@@ -34,7 +34,7 @@ class Location implements Persistable {
 
     @Override
     public String toFileFormat() {
-        return String.format("%.6f,%.6f", latitude, longitude);
+        return String.format("%.4f,%.4f", latitude, longitude);
     }
     public static Location fromFileFormat(String data) {
         String[] parts = data.split(",");
