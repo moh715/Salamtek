@@ -1,5 +1,4 @@
 package com.example.salamtek1;
- import com.example.salamtek1.Reportable;
  import java.time.LocalDateTime;
   import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,10 +11,8 @@ enum AccidentStatus { REPORTED, OFFICER_ASSIGNED, UNDER_INVESTIGATION, COMPLETED
 // Implements Reportable interface
 class Accident implements Persistable, Validatable {
     private String accidentId;
-    private String reporterNationalId;
-    private String otherPartyNationalId;
-    private String reporterLicensePlate;
-    private String otherPartyLicensePlate;
+    private String reporterNationalIdy, otherPartyNationalId;
+    private String reporterLicensePlate, otherPartyLicensePlate;
     private Location accidentLocation;  // Composition - Accident HAS-A Location
     private LocalDateTime reportTime;
     private AccidentStatus status;
