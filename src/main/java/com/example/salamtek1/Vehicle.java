@@ -25,7 +25,7 @@ class Vehicle implements Persistable, Validatable {
 
     @Override
     public void validate() throws ValidationException {
-        if (make == null || make.trim().isEmpty()) {
+        if (make.trim().isEmpty()) {
             throw new ValidationException("Vehicle make cannot be empty");
         }
         if (year < 1900 || year > LocalDateTime.now().getYear() + 1) {

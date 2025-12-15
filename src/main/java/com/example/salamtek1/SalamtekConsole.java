@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class SalamtekEnhancedConsole {
+public class SalamtekConsole {
     private static Scanner scanner = new Scanner(System.in);
     private static AccidentService accidentService = new AccidentService();
     private static PaymentService paymentService = new PaymentService();
@@ -15,7 +15,7 @@ public class SalamtekEnhancedConsole {
     public static void main(String[] args) {
         boolean running = true;
         while (running) {
-            System.out.println("\n========== MAIN MENU ==========");
+            System.out.println("\nMAIN MENU");
             System.out.println("1. Login (User/Officer)");
             System.out.println("2. Register New User");
             System.out.println("3. Exit");
@@ -45,7 +45,7 @@ public class SalamtekEnhancedConsole {
 
 
     private static void handleLogin() {
-        System.out.println("\n========== LOGIN ==========");
+        System.out.println("\nLOGIN");
         System.out.print("Enter ID/Email: ");
         String identifier = getValidInput();
 
